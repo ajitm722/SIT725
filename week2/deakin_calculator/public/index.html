@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Deakin Calculator</title>
+    <link rel="stylesheet" type="text/css" href="/styles.css" />
+  </head>
+  <body>
+    <h1>Welcome to Deakin Grade Calculator!</h1>
+    <form id="gradeForm" action="/submit" method="post">
+      <h2>Enter Marks For Each Task (Out of 20):</h2>
+      <ul style="list-style: none; padding: 0">
+        <li style="margin-bottom: 10px">
+          <label for="task1">Task 1:</label>
+          <input
+            type="number"
+            name="task1"
+            min="0"
+            max="20"
+            placeholder="Enter marks for this task"
+            required
+          />
+        </li>
+        <li style="margin-bottom: 10px">
+          <label for="task2">Task 2:</label>
+          <input
+            type="number"
+            name="task2"
+            min="0"
+            max="20"
+            placeholder="Enter marks for this task"
+            required
+          />
+        </li>
+        <li style="margin-bottom: 10px">
+          <label for="task3">Task 3:</label>
+          <input
+            type="number"
+            name="task3"
+            min="0"
+            max="20"
+            placeholder="Enter marks for this task"
+            required
+          />
+        </li>
+        <li style="margin-bottom: 10px">
+          <label for="task4">Task 4:</label>
+          <input
+            type="number"
+            name="task4"
+            min="0"
+            max="20"
+            placeholder="Enter marks for this task"
+            required
+          />
+        </li>
+        <li style="margin-bottom: 10px">
+          <label for="task5">Task 5:</label>
+          <input
+            type="number"
+            name="task5"
+            min="0"
+            max="20"
+            placeholder="Enter marks for this task"
+            required
+          />
+        </li>
+      </ul>
+      <button type="submit">Submit Marks</button>
+    </form>
+    <h2 id="resultHeader" style="display:none;">I've calculated your result :)</h2>
+  <p id="result"></p>
+  <script>
+    document.getElementById('gradeForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+
+      const formData = new FormData(event.target);
+      const data = new URLSearchParams(formData);
+
+      const response = await fetch('/submit', {
+        method: 'POST',
+        body: data,
+      });
+      const result = await response.json();
+
+      document.getElementById('resultHeader').style.display = 'block';
+      document.getElementById('result').textContent = `Received Total Marks: ${result.totalMarks} and Final Grade: ${result.grade}. `;
+    });
+  </script>
+</body>
+  </body>
+</html>
