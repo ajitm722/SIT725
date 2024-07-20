@@ -8,12 +8,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static("public"));
 
-app.get("/", (req, res) => {
+app.get("/home", (req, res) => {
   res.send(calculator.home);
 });
 
 app.get("/about", (req, res) => {
   res.send(calculator.about);
+});
+
+app.use((req, res) => {
+  res.status(404).send(calculator.notfound);
 });
 
 app.post("/submit", (req, res) => {
@@ -43,9 +47,6 @@ app.post("/submit", (req, res) => {
   res.json({ totalMarks, grade });
 });
 
-app.use((req, res) => {
-  res.status(404).send(calculator.notfound);
-});
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
