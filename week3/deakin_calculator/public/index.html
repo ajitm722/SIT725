@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Deakin Calculator</title>
+    <!-- Import Materialize CSS -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" href="/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Page Title -->
+      <h1 class="center-align">Welcome to Deakin Grade Calculator!</h1>
+
+      <!-- Input Card -->
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">Enter Marks For Each Task (Out of 20)</span>
+          <!-- Form for submitting marks -->
+          <form id="gradeForm" action="/submit" method="post">
+            <div class="row">
+              <div class="input-field col s12">
+                <input
+                  type="number"
+                  id="task1"
+                  name="task1"
+                  min="0"
+                  max="20"
+                  placeholder="Enter marks for this task"
+                  required
+                  data-tooltip="Enter marks between 0 and 20"
+                  class="tooltipped"
+                />
+                <label for="task1">Task 1</label>
+              </div>
+
+              <div class="input-field col s12">
+                <input
+                  type="number"
+                  id="task2"
+                  name="task2"
+                  min="0"
+                  max="20"
+                  placeholder="Enter marks for this task"
+                  required
+                  data-tooltip="Enter marks between 0 and 20"
+                  class="tooltipped"
+                />
+                <label for="task2">Task 2</label>
+              </div>
+
+              <div class="input-field col s12">
+                <input
+                  type="number"
+                  id="task3"
+                  name="task3"
+                  min="0"
+                  max="20"
+                  placeholder="Enter marks for this task"
+                  required
+                  data-tooltip="Enter marks between 0 and 20"
+                  class="tooltipped"
+                />
+                <label for="task3">Task 3</label>
+              </div>
+
+              <div class="input-field col s12">
+                <input
+                  type="number"
+                  id="task4"
+                  name="task4"
+                  min="0"
+                  max="20"
+                  placeholder="Enter marks for this task"
+                  required
+                  data-tooltip="Enter marks between 0 and 20"
+                  class="tooltipped"
+                />
+                <label for="task4">Task 4</label>
+              </div>
+
+              <div class="input-field col s12">
+                <input
+                  type="number"
+                  id="task5"
+                  name="task5"
+                  min="0"
+                  max="20"
+                  placeholder="Enter marks for this task"
+                  required
+                  data-tooltip="Enter marks between 0 and 20"
+                  class="tooltipped"
+                />
+                <label for="task5">Task 5</label>
+              </div>
+            </div>
+            <!-- Submit Button -->
+            <button class="btn waves-effect waves-light" type="submit">
+              Submit Marks
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Result Modal -->
+      <div id="resultModal" class="modal">
+        <div class="modal-content">
+          <h4>Result</h4>
+          <p id="result"></p>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class="modal-close waves-effect waves-light btn red"
+            >Close</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Import Materialize JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Initialize tooltips
+        const tooltippedElems = document.querySelectorAll(".tooltipped");
+        M.Tooltip.init(tooltippedElems, {
+          enterDelay: 200, // Shorter delay before tooltip appears (in ms)
+          exitDelay: 100, // Shorter delay before tooltip disappears (in ms)
+          position: "top", // Position of tooltip (top, bottom, left, right)
+          html: true, // Allow HTML content in tooltips
+          inDuration: 500, // Longer animation duration for showing tooltip (in ms)
+          outDuration: 300, // Longer animation duration for hiding tooltip (in ms)
+        });
+
+        // Initialize modals
+        const modalElems = document.querySelectorAll(".modal");
+        M.Modal.init(modalElems);
+      });
+
+      document
+        .getElementById("gradeForm")
+        .addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          const formData = new FormData(event.target);
+          const data = new URLSearchParams(formData);
+
+          const response = await fetch("/submit", {
+            method: "POST",
+            body: data,
+          });
+
+          try {
+            const result = await response.json();
+            const instance = M.Modal.getInstance(
+              document.getElementById("resultModal")
+            );
+            document.getElementById(
+              "result"
+            ).textContent = `Received Total Marks: ${result.totalMarks} and Final Grade: ${result.grade}. `;
+            instance.open();
+          } catch (error) {
+            console.error("Error parsing JSON:", error);
+          }
+        });
+    </script>
+  </body>
+</html>
