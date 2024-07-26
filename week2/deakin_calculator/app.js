@@ -8,18 +8,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static("public"));
 
-app.get("/home", (req, res) => {
-  res.send(calculator.home);
-});
-
-app.get("/about", (req, res) => {
-  res.send(calculator.about);
-});
-
-app.use((req, res) => {
-  res.status(404).send(calculator.notfound);
-});
-
 app.post("/submit", (req, res) => {
   const task1 = parseInt(req.body.task1, 10);
   const task2 = parseInt(req.body.task2, 10);
@@ -47,6 +35,17 @@ app.post("/submit", (req, res) => {
   res.json({ totalMarks, grade });
 });
 
+// app.get("/home", (req, res) => {
+//   res.send(calculator.home);
+// });
+
+// app.get("/about", (req, res) => {
+//   res.send(calculator.about);
+// });
+
+// app.use((req, res) => {
+//   res.status(404).send(calculator.notfound);
+// });
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
