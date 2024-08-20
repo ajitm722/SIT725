@@ -56,3 +56,6 @@ connectDB().then(() => {
     console.log(`Server is running at http://localhost:${port}`);
   });
 });
+
+// Export the server for testing
+module.exports = server;
