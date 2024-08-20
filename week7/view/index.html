@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Deakin Calculator</title>
+    <!-- Import Materialize CSS -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" href="/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Page Title -->
+      <h3 class="center-align">Welcome to Deakin Grade Calculator!</h3>
+
+      <!-- Input Card for Messages -->
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">Send Some message to supervisor</span>
+          <!-- Form for sending messages -->
+          <div class="row">
+            <div class="input-field col s12">
+              <input
+                type="text"
+                id="messageInput"
+                placeholder="Enter your message"
+                required
+              />
+              <label for="messageInput">Message</label>
+            </div>
+          </div>
+          <button class="btn waves-effect waves-light" onclick="sendMessage()">
+            Send Message
+          </button>
+        </div>
+      </div>
+
+      <!-- Message Display -->
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">Messages sent:</span>
+          <ul id="messages"></ul>
+        </div>
+      </div>
+
+      <!-- Input Card -->
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">Enter Marks For Each Task (Out of 20)</span>
+          <!-- Form for submitting marks -->
+          <form id="gradeForm">
+            <div class="row">
+              <div class="input-field col s12">
+                <input
+                  type="text"
+                  id="studentId"
+                  name="studentId"
+                  placeholder="Enter your student ID"
+                  required
+                />
+                <label for="studentId">Student ID</label>
+              </div>
+
+              <div class="input-field col s12">
+                <input
+                  type="number"
+                  id="task1"
+                  name="task1"
+                  min="0"
+                  max="20"
+                  placeholder="Enter marks for this task"
+                  required
+                  data-tooltip="Enter marks between 0 and 20"
+                  class="tooltipped"
+                />
+                <label for="task1">Task 1</label>
+              </div>
+
+              <div class="input-field col s12">
+                <input
+                  type="number"
+                  id="task2"
+                  name="task2"
+                  min="0"
+                  max="20"
+                  placeholder="Enter marks for this task"
+                  required
+                  data-tooltip="Enter marks between 0 and 20"
+                  class="tooltipped"
+                />
+                <label for="task2">Task 2</label>
+              </div>
+
+              <div class="input-field col s12">
+                <input
+                  type="number"
+                  id="task3"
+                  name="task3"
+                  min="0"
+                  max="20"
+                  placeholder="Enter marks for this task"
+                  required
+                  data-tooltip="Enter marks between 0 and 20"
+                  class="tooltipped"
+                />
+                <label for="task3">Task 3</label>
+              </div>
+
+              <div class="input-field col s12">
+                <input
+                  type="number"
+                  id="task4"
+                  name="task4"
+                  min="0"
+                  max="20"
+                  placeholder="Enter marks for this task"
+                  required
+                  data-tooltip="Enter marks between 0 and 20"
+                  class="tooltipped"
+                />
+                <label for="task4">Task 4</label>
+              </div>
+
+              <div class="input-field col s12">
+                <input
+                  type="number"
+                  id="task5"
+                  name="task5"
+                  min="0"
+                  max="20"
+                  placeholder="Enter marks for this task"
+                  required
+                  data-tooltip="Enter marks between 0 and 20"
+                  class="tooltipped"
+                />
+                <label for="task5">Task 5</label>
+              </div>
+            </div>
+            <!-- Submit Button -->
+            <button class="btn waves-effect waves-light" type="submit">
+              Submit Marks
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Retrieve Marks Card -->
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">Retrieve Marks and Grade by Student ID</span>
+          <!-- Form for retrieving marks -->
+          <form id="retrieveForm">
+            <div class="row">
+              <div class="input-field col s12">
+                <input
+                  type="text"
+                  id="retrieveId"
+                  name="studentId"
+                  placeholder="Enter student ID to retrieve marks"
+                  required
+                />
+                <label for="retrieveId">Student ID</label>
+              </div>
+            </div>
+            <!-- Submit Button -->
+            <button class="btn waves-effect waves-light" type="submit">
+              Retrieve Marks
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Submit Marks Modal -->
+      <div id="submitModal" class="modal">
+        <div class="modal-content">
+          <h4>Submit Marks Result</h4>
+          <p id="submitResult"></p>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class="modal-close waves-effect waves-light btn red"
+            >Close</a
+          >
+        </div>
+      </div>
+
+      <!-- Retrieve Marks Modal -->
+      <div id="retrieveModal" class="modal">
+        <div class="modal-content">
+          <h4>Retrieve Marks Result</h4>
+          <p id="retrieveResult"></p>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class="modal-close waves-effect waves-light btn red"
+            >Close</a
+          >
+        </div>
+      </div>
+    </div>
+    <!-- Import Materialize JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Import Socket.IO client-side library -->
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- Link to main.js -->
+    <script src="/main.js"></script>
+  </body>
+</html>
